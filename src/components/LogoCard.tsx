@@ -54,38 +54,10 @@ const LogoCard: React.FC<LogoCardProps> = ({ logo }) => {
             variant="secondary" 
             size="icon" 
             className="rounded-full bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900"
-            onClick={handleFavoriteClick}
-          >
-            <Heart 
-              className={cn(
-                "h-4 w-4", 
-                isFavorite ? "fill-red-500 text-red-500" : "text-gray-700 dark:text-gray-300"
-              )} 
-            />
-          </Button>
-          <Button 
-            variant="secondary" 
-            size="icon" 
-            className="rounded-full bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900"
           >
             <Download className="h-4 w-4 text-gray-700 dark:text-gray-300" />
           </Button>
-          <Button 
-            variant="secondary" 
-            size="icon" 
-            className="rounded-full bg-white/80 dark:bg-gray-900/80 hover:bg-white dark:hover:bg-gray-900"
-          >
-            <Share2 className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-          </Button>
         </div>
-        <Button 
-          variant="default" 
-          size="sm"
-          className="rounded-full px-4 bg-white/90 dark:bg-gray-900/90 text-black dark:text-white hover:bg-white dark:hover:bg-gray-900"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add to Collection
-        </Button>
       </div>
 
       {/* Footer with logo info */}
