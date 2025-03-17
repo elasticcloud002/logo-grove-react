@@ -50,21 +50,6 @@ const Index = () => {
                 <div className="mb-12">
                   <SearchBar />
                 </div>
-                
-                <div className="flex flex-wrap gap-2 justify-center">
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    SVG Files
-                  </Button>
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    PNG Transparent
-                  </Button>
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    Vector Logos
-                  </Button>
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    High Resolution
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
@@ -81,22 +66,6 @@ const Index = () => {
                     {totalResults} results
                   </Badge>
                 )}
-              </div>
-              
-              <div className="flex items-center gap-4">
-                <Tabs defaultValue="all" className="w-full md:w-auto">
-                  <TabsList>
-                    <TabsTrigger value="all">All</TabsTrigger>
-                    <TabsTrigger value="svg">SVG</TabsTrigger>
-                    <TabsTrigger value="png">PNG</TabsTrigger>
-                  </TabsList>
-                </Tabs>
-                
-                <div className="hidden md:flex">
-                  <Button variant="outline" size="sm" className="gap-1">
-                    Latest <ChevronRight className="h-4 w-4" />
-                  </Button>
-                </div>
               </div>
             </div>
             

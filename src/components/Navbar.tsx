@@ -51,22 +51,10 @@ const Navbar: React.FC = () => {
                   {category}
                 </Button>
               ))}
-              {categories.length > 5 && (
-                <Button variant="ghost" className="text-sm font-medium">
-                  More
-                </Button>
-              )}
             </nav>
           </div>
 
           <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="hidden md:inline-flex"
-            >
-              Sign In
-            </Button>
             <Button 
               size="sm"
               className="bg-primary/90 hover:bg-primary transition-all"
