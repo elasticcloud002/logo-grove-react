@@ -41,7 +41,7 @@ const Index = () => {
                   Over 10,000 high-quality logos
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight leading-tight">
-                  Find the perfect logo for your next project
+                  Logo Repository
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
                   Browse, download, and use premium logo assets from top brands and designers.
