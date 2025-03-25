@@ -2,12 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from '@/contexts/SearchContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { LogIn, LogOut, User } from 'lucide-react';
+import SignInModal from './SignInModal';
+import SignUpModal from './SignUpModal';
 
 const Navbar: React.FC = () => {
   const { setSelectedCategory, categories } = useSearch();
+  const { user, isAuthenticated, signOut } = useAuth();
   const [scrolled, setScrolled] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +29,20 @@ const Navbar: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scrolled]);
+
+  const handleSignIn = () => {
+    setShowSignInModal(true);
+    setShowSignUpModal(false);
+  };
+
+  const handleSignUp = () => {
+    setShowSignUpModal(true);
+    setShowSignInModal(false);
+  };
+
+  const handleSignOut = () => {
+    signOut();
+  };
 
   return (
     <header 
@@ -55,15 +76,67 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button 
-              size="sm"
-              className="bg-primary/90 hover:bg-primary transition-all"
-            >
-              Upload Logo
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button 
+                  size="sm"
+                  className="bg-primary/90 hover:bg-primary transition-all"
+                >
+                  Upload Logo
+                </Button>
+                <div className="flex items-center gap-2 ml-2 text-sm text-muted-foreground">
+                  <User className="h-4 w-4" />
+                  <span>{user?.name}</span>
+                </div>
+                <Button 
+                  size="sm"
+                  variant="ghost"
+                  onClick={handleSignOut}
+                >
+                  <LogOut className="h-4 w-4 mr-1" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  size="sm"
+                  variant="outline"
+                  onClick={handleSignIn}
+                >
+                  <LogIn className="h-4 w-4 mr-1" />
+                  Sign In
+                </Button>
+                <Button 
+                  size="sm"
+                  className="bg-primary/90 hover:bg-primary transition-all"
+                  onClick={handleSignUp}
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
+
+      <SignInModal 
+        isOpen={showSignInModal} 
+        onClose={() => setShowSignInModal(false)} 
+        onSwitchToSignUp={() => {
+          setShowSignInModal(false);
+          setShowSignUpModal(true);
+        }}
+      />
+
+      <SignUpModal 
+        isOpen={showSignUpModal} 
+        onClose={() => setShowSignUpModal(false)} 
+        onSwitchToSignIn={() => {
+          setShowSignUpModal(false);
+          setShowSignInModal(true);
+        }}
+      />
     </header>
   );
 };
