@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
               to="/" 
               className="font-bold text-2xl tracking-tight transition-all hover:opacity-80"
             >
-              LogoGrove
+              Logo Grove
             </Link>
 
             <nav className="hidden md:flex items-center gap-1">
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
                 </Button>
                 <div className="flex items-center gap-2 ml-2 text-sm text-muted-foreground">
                   <User className="h-4 w-4" />
-                  <span>{user?.name}</span>
+                  <span>{user?.user.name}</span>
                 </div>
                 <Button 
                   size="sm"

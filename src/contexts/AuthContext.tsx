@@ -1,10 +1,13 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 type User = {
-  id: string;
-  email: string;
-  name: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  },
+  authToken: string;
 };
 
 type AuthContextType = {
@@ -39,9 +42,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Mock user for demo
-      const user = { id: '1', email, name: email.split('@')[0] };
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
+      // const user = { id: '1', email, name: email.split('@')[0] };
+      const user = await axios.post<User>('http://localhost:3001/api/auth/sign-in', {
+        email, password
+      });
+      setUser(user.data as User);
+      localStorage.setItem('userId', JSON.stringify(user.data.user.id));
+      localStorage.setItem('userEmail', JSON.stringify(user.data.user.email));
+      localStorage.setItem('userName', JSON.stringify(user.data.user.name));
+      localStorage.setItem('authToken', JSON.stringify(user.data.authToken));
     } finally {
       setIsLoading(false);
     }
@@ -55,9 +64,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Mock user for demo
-      const user = { id: '1', email, name };
-      setUser(user);
-      localStorage.setItem('user', JSON.stringify(user));
+      const user = await axios.post<User>('http://localhost:3001/api/auth/sign-up', {
+        email, password, name,
+      });
+      setUser(user.data as User);
+      localStorage.setItem('userId', JSON.stringify(user.data.user.id));
+      localStorage.setItem('userEmail', JSON.stringify(user.data.user.email));
+      localStorage.setItem('userName', JSON.stringify(user.data.user.name));
+      localStorage.setItem('authToken', JSON.stringify(user.data.authToken));
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +79,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('authToken');
   };
 
   return (
